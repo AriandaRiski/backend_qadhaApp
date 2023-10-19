@@ -94,10 +94,28 @@ const hapus = async (req, res) => {
     }
 }
 
+const listPuasaByUser = async (req, res) => {
+    try {
+        const list = await PuasaModel.getPuasaByUser(req.body.user_id);
+        const total = await PuasaModel.getTotalByUser(req.body.user_id)
+
+        return res.status('200').json({
+            success: true,
+            data: list,
+            total: total.total
+        });
+
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({ message: error });
+    }
+}
+
 
 module.exports = {
     listPuasa,
     tambah,
     update,
-    hapus
+    hapus,
+    listPuasaByUser
 }

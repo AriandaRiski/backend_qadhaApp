@@ -46,7 +46,24 @@ const addUser = async (req, res) => {
     }
 }
 
+const userById = async (req, res) => {
+
+    try {
+        const userById = await LoginModel.cekEmail(req.body.email);
+
+        return res.status('201').json({
+            success: true,
+            data: userById,
+        });
+
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({ message: error });
+    }
+}
+
 module.exports = {
     listUser,
-    addUser
+    addUser,
+    userById
 }

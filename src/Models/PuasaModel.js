@@ -43,11 +43,31 @@ const hapus = (id) => {
     return hapus;
 }
 
+const getPuasaByUser = (user_id) => {
+    try {
+        const getPuasa = db('puasa').select('*').where('user_id', user_id).orderBy('tanggal_puasa', 'desc');
+        return getPuasa
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+const getTotalByUser = (user_id) => {
+    try {
+        const total = db('puasa').where('user_id', user_id).count('* as total').first();
+        return total;
+    } catch (error) {
+        console.log(error);
+    }
+}
+
 module.exports = {
     getPuasa,
     getTotal,
     addPuasa,
     cekId,
     update,
-    hapus
+    hapus,
+    getPuasaByUser,
+    getTotalByUser
 }
